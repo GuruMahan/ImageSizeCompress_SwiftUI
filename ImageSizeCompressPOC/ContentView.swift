@@ -8,11 +8,11 @@
 
 import SwiftUI
 import PhotosUI
-
+import UIKit
 
 
 struct ContentView: View {
-    @State var selectedItems: [PhotosPickerItem] = []
+   // @State var selectedItems: [PhotosPickerItem] = []
     @State var data: Data?
 @Environment (\.presentationMode) var presentationMode
 @State var avatarImage = UIImage(systemName: "person.crop.circle")!
@@ -21,6 +21,7 @@ struct ContentView: View {
 @State var cameraShow = false
 @State var fileShow = false
 @State var fileName = ""
+    @State var fileSize: String = ""
 
 var body: some View {
     
@@ -35,8 +36,11 @@ var body: some View {
                     
                     Image(uiImage: avatarImage )
                         .resizable()
-                        .frame(width: 150,height: 150)
-                        .clipShape(Circle())
+                        .frame(maxWidth: .infinity,maxHeight: 400)
+                        .cornerRadius(20)
+                        .padding()
+                        //.frame(width: 150,height: 150)
+                        //.clipShape(Circle())
                     
                     
                 }
@@ -52,7 +56,7 @@ var body: some View {
             Spacer()
             Text("Image Size: \(imageSizeInMB(image: avatarImage))")
             
-//            Text("CompressImage Size:\(CompressImage(image: avatarImage))")
+            Text("CompressImage Size:\((fileSize))")
             
             Button {
              CompressImage(image: avatarImage)
@@ -64,21 +68,25 @@ var body: some View {
         }
         .onAppear {
          //   guard let image = avatarImage else { return }
-            PhotoPicker(avatarImage: $avatarImage).compress(image: avatarImage)
+            //PhotoPicker(avatarImage: $avatarImage).compress(image: avatarImage)
             let sizekb = avatarImage.jpegData(compressionQuality: 0.1)
             print("\((sizekb?.count ?? 0) / 1024)")
         }
         .navigationTitle("profile")
                     .sheet(isPresented: $showPhotoPicker) {
-                        PopUpView
-                            .presentationDetents([.fraction(0.40)])
-                            .colorScheme(.dark)
+                        if #available(iOS 16.0, *) {
+                            PopUpView
+                                .presentationDetents([.fraction(0.40)])
+                                .colorScheme(.dark)
+                        } else {
+                            // Fallback onFocusedBinding earlier versions
+                        }
                     }
         .sheet(isPresented: $cameraShow){
             //                PopUpView
             //                    .frame(width: 250,height: 300)
             //                    .background(Color.clear)
-            PhotoPicker(avatarImage: $avatarImage,sourceTYPE: .savedPhotosAlbum)
+            PhotoPicker(avatarImage: $avatarImage,sourceTYPE: .camera)
         }
     }
     .fileImporter(isPresented: $fileShow, allowedContentTypes: [.image,.audio,.data]) { result in
@@ -100,33 +108,13 @@ var body: some View {
             
             
         } catch {
-            print("error: \(error)") // todo
+            print("error: \(error)")
         }
-        
     }
-       // .frame(maxWidth: .infinity,maxHeight: 300)
-
-   
-//        let popupView = PopUpView
-//            if showPhotoPicker == true{
-//                withAnimation(.easeIn(duration: 1)) {
-//                    popupView
-//                  .frame(maxWidth: .infinity,maxHeight: 300)
-//                    .background(Color.red).opacity(0.3)
-//                    .cornerRadius(10)
-//                    .frame(height: 300)
-//                    .padding()
-//                }
-//
-//            }
-    
-  
 }
 
 
-@ViewBuilder var PopUpView: some View{
-
-           // LinearGradient(colors: [Color.gray], startPoint: .leading, endPoint: .trailing)
+@ViewBuilder var PopUpView: some View {
         HStack(spacing: 10){
                     Button{
                         cameraShow = true
@@ -147,7 +135,7 @@ var body: some View {
                                 fileShow = true
                         })
                     } label: {
-                        Image(systemName: "filemenu.and.cursorarrow")
+                           Image(systemName: "filemenu.and.cursorarrow")
                             .frame(width: 80,height: 80)
                             .foregroundColor(Color.black)
                             .background(Color.red)
@@ -162,28 +150,26 @@ var body: some View {
 
     }
     
-    func CompressImage(image: UIImage) -> String {
-        guard let imageData = image.jpegData(compressionQuality: 1.0) else {
-            return "Unknown"
+    func CompressImage(image: UIImage) {
+        guard let imageData = image.jpegData(compressionQuality: 0.7) else {
+            return
         }
-       PhotoPicker(avatarImage: $avatarImage).compress(image: imageData)
-              //  let sizekb = image.jpegData(compressionQuality: 0.1)
+        let sizeInBytes = imageData.count
+        let sizeInMB = ByteCountFormatter.string(fromByteCount: Int64(sizeInBytes), countStyle: .file)
+        fileSize = sizeInMB
+    
             print("imagecompress==>\(Double(imageData.count) / 1024)")
         
-        return ""
  }
     
        
     
     
     func imageSizeInMB(image: UIImage) -> String {
-            guard let imageData = image.jpegData(compressionQuality: 1.0) else {
-                return "Unknown"
-            }
-            
-            let sizeInBytes = imageData.count
+        
+        let imageData = UIImage.pngData(image)
+        let sizeInBytes = imageData()?.count ?? 0
             let sizeInMB = ByteCountFormatter.string(fromByteCount: Int64(sizeInBytes), countStyle: .file)
-            
             return sizeInMB
         }
     
