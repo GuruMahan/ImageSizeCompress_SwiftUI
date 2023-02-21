@@ -11,6 +11,8 @@
 		18C52BD329A381AF002EC516 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C52BD229A381AF002EC516 /* ContentView.swift */; };
 		18C52BD529A381B0002EC516 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18C52BD429A381B0002EC516 /* Assets.xcassets */; };
 		18C52BD829A381B0002EC516 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18C52BD729A381B0002EC516 /* Preview Assets.xcassets */; };
+		18C52BDF29A3830E002EC516 /* PhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C52BDE29A3830E002EC516 /* PhotoPicker.swift */; };
+		18C52BE129A389A8002EC516 /* CompressImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C52BE029A389A8002EC516 /* CompressImageView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +21,8 @@
 		18C52BD229A381AF002EC516 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		18C52BD429A381B0002EC516 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		18C52BD729A381B0002EC516 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		18C52BDE29A3830E002EC516 /* PhotoPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoPicker.swift; sourceTree = "<group>"; };
+		18C52BE029A389A8002EC516 /* CompressImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompressImageView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +57,8 @@
 			children = (
 				18C52BD029A381AF002EC516 /* ImageSizeCompressPOCApp.swift */,
 				18C52BD229A381AF002EC516 /* ContentView.swift */,
+				18C52BDE29A3830E002EC516 /* PhotoPicker.swift */,
+				18C52BE029A389A8002EC516 /* CompressImageView.swift */,
 				18C52BD429A381B0002EC516 /* Assets.xcassets */,
 				18C52BD629A381B0002EC516 /* Preview Content */,
 			);
@@ -137,8 +143,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18C52BE129A389A8002EC516 /* CompressImageView.swift in Sources */,
 				18C52BD329A381AF002EC516 /* ContentView.swift in Sources */,
 				18C52BD129A381AF002EC516 /* ImageSizeCompressPOCApp.swift in Sources */,
+				18C52BDF29A3830E002EC516 /* PhotoPicker.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -275,6 +283,8 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				"IPHONEOS_DEPLOYMENT_TARGET[sdk=iphoneos*]" = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -304,6 +314,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
